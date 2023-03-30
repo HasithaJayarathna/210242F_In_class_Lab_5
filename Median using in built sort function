@@ -1,0 +1,33 @@
+/*Using in built function to sort the array to get the median*/
+/*Input space seperated integers and then adding a non integer type element will stop getting inputs*/
+#include <bits/stdc++.h>
+#include <vector>
+using namespace std;
+
+void Calc_Median(vector<int> arr, int right){
+    int mid = right/2;
+    double Median;
+    if(right%2 == 0){
+        Median = arr[mid];
+    }
+    else {
+        Median = (arr[mid]+arr[mid+1])/2.0;
+    }
+    cout << fixed << setprecision(1) << Median << endl;
+}
+
+int main() {
+    int element;
+    vector<int> arr;
+    while (cin >> element){
+        arr.push_back(element);
+    }
+    int length = arr.size();
+    for (int i = 0; i < length; i++) {
+        cin >> arr[i];
+        sort(arr.begin(), arr.begin() + i + 1);
+        Calc_Median(arr,i);
+    }
+
+    return 0;
+}
