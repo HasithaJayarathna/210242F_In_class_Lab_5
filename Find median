@@ -1,0 +1,65 @@
+/*Using recursive quick sort algorithm to sort the array to get the median*/
+/*Input space seperated integers and then adding a non integer type element will stop getting inputs*/
+
+#include <bits/stdc++.h>
+#include <vector>
+
+using namespace std;
+
+void swap(int *a,int *b){
+    int temp = *a;
+    *a=*b;
+    *b = temp;
+    }
+
+int partition (int A[], int p, int r){
+    int x = A[r];
+    int i = p - 1;
+    for (int j = p; j <= r- 1; j++){
+        if (A[j] <= x){
+            i++;
+            swap (&A[i], &A[j]);
+        }
+    }
+    swap (&A[i + 1], &A[r]);
+    return (i + 1);
+}
+
+void quickSort(int A[], int p, int r){
+    if (p < r){
+        int q = partition(A, p,r);
+        quickSort(A, p, q - 1);
+        quickSort(A, q + 1, r);
+    }
+}
+
+int main(){
+    vector<int> input;
+    int element;
+    while (cin >> element){
+        input.push_back(element);
+    }
+    int length = input.size();
+    int arr[length] = {};
+    for (int k = 0; k< length ; k++){
+        arr[k] = input [k];
+    }
+    double median;
+    for (int i = 0; i < length; i++){
+        quickSort(arr,0,i);
+        int mid = (i/2);
+        if (i%2 == 0){
+            median = arr[mid];
+        }
+        else {
+            median = (arr[mid] + arr[mid+1]) / 2.0;
+        }
+        cout << "Sorted Array.\n";
+        for (int j = 0 ; j < i+1 ;j++){
+            cout << arr[j] << " ";
+        }
+        cout << endl;
+        cout << "Median\n";
+        cout << fixed << setprecision(1) << median << endl;
+    }
+}

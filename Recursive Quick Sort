@@ -1,0 +1,54 @@
+/*Recursive quick sort algorithm for a given number of elements to generate a random array and check the execution time of the quickSort function*/
+#include <bits/stdc++.h>
+#include <chrono>
+#include <ctime>
+
+using namespace std::chrono;
+using namespace std;
+
+void swap(int *a,int *b){
+    int temp = *a;
+    *a=*b;
+    *b = temp;
+    }
+
+int partition (int A[], int p, int r){
+    int x = A[r];
+    int i = p - 1;
+    for (int j = p; j <= r- 1; j++){
+        if (A[j] <= x){
+            i++;
+            swap (&A[i], &A[j]);
+        }
+    }
+    swap (&A[i + 1], &A[r]);
+    return (i + 1);
+}
+
+void quickSort(int A[], int p, int r){
+    if (p < r){
+        int q = partition(A, p,r);
+        quickSort(A, p, q - 1);
+        quickSort(A, q + 1, r);
+    }
+}
+
+int main(){
+    int n;
+    cout << "Enter number of elements," << endl;
+    cin >> n;
+    int a[n];
+    srand(time(NULL));
+    for (int i = 0; i <n;i++){
+        a[i] = rand()%n + 1;
+    }
+    auto start = steady_clock::now();
+    quickSort(a,0,n);
+    auto finish = steady_clock::now();
+    auto dur = finish - start;
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<" ";
+    cout << endl;
+    cout << duration_cast<nanoseconds>(dur).count() << endl;
+    return 0;
+}
