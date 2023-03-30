@@ -55,10 +55,16 @@ int main(){
             median = (arr[mid] + arr[mid+1]) / 2.0;
         }
         cout << "Sorted Array.\n";
+        cout << "[";
         for (int j = 0 ; j < i+1 ;j++){
-            cout << arr[j] << " ";
+            if (j == i){
+                cout << arr[j];
+            }
+            else {
+                cout << arr[j] << ",";
+            }
         }
-        cout << endl;
+        cout << "]" << endl;
         cout << "Median\n";
         cout << fixed << setprecision(1) << median << endl;
     }
